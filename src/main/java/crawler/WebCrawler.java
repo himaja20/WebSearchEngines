@@ -193,7 +193,7 @@ public class WebCrawler {
 		//String[] queryTerms = query.split(" ");
 		int K = 0;
 		for (String q : query){
-			if(anchor.contains(q)){
+			if(anchor.contains(q.toLowerCase())){
 				K++;
 			}
 		}
@@ -205,7 +205,7 @@ public class WebCrawler {
 		String url = link.attr("href").toLowerCase();
 		K = 0;
 		for (String q : query){
-			if(url.contains(q)){
+			if(url.contains(q.toLowerCase())){
 				return 40;
 			}
 		}
@@ -225,7 +225,7 @@ public class WebCrawler {
 		}
 
 		for(String q: query){
-			if(neighborWords.contains(q)){
+			if(neighborWords.contains(q.toLowerCase())){
 				U++;
 			}
 		}
@@ -242,7 +242,7 @@ public class WebCrawler {
 		}
 		for(String q: query){
 
-			if(rawTextList.contains(q)){
+			if(rawTextList.contains(q.toLowerCase())){
 				V++;
 			}
 		}
