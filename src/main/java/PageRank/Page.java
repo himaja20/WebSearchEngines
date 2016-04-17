@@ -16,7 +16,7 @@ public class Page {
     score = 0;
     newScore = 0;
     id = counter++;
-    fileLocation = fileLoc; //TODO set the file name from main "docs" parameter
+    fileLocation = fileLoc; 
     fileName = Paths.get(fileLocation).getFileName().toString();
   }
   
@@ -60,3 +60,5 @@ public class Page {
     return (float) (Math.log(x) / Math.log(base));
   }
 }
+
+

@@ -54,7 +54,6 @@ public class Parser {
   public int getWordCount(String pageFile) throws IOException{
     Document doc = Jsoup.parse(new File(pageFile),"UTF-8","");
     String text = doc.text().trim();
-    
     String[] tokens = text.split(" ");
     return tokens.length;
   }

@@ -14,19 +14,4 @@ public class Weights {
   public float getWeights(Page q, Page p){
     return this.weights[q.getId()][p.getId()];
   }
-  
-//  public void printWeightMatrix(ArrayList<Page> pages){
-//    for (Page page: pages){
-//      System.out.print("                  " + page.getFileName() + " ");
-//    }
-//    System.out.println();
-//    for (int i = 0; i<weights.length ; i++){
-//      System.out.print(pages.get(i).getFileName() + "                ");
-//      for(int j = 0; j<weights.length; j++){
-//        System.out.print(weights[i][j] + "           ");
-//      }
-//      System.out.println();
-//    }
-//  }
-  
 }

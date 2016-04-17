@@ -3,50 +3,54 @@ package PageRank;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+
 /*
  * TODO
- * Implementation of comparator of pages based on scores
- * Jcommander arguments
  * Cleaning up of code
  */
-
-
 public class PageRank {
+  
+  @Parameter(names={"-docs", "-d"},required = true)
+  private String docs;
+  @Parameter(names={"-F", "-f"},required = true)
+  private float f;
 
   public static void main(String[] args) throws IOException {
     PageRank pr = new PageRank();
+    new JCommander(pr, args);
     pr.rank();
   }
 
-  private void rank() throws IOException{
+  public void rank() throws IOException{
 
     Parser parser = new Parser();
     ArrayList<Page> pages = new ArrayList<Page>();
     Map<String, Integer> outlinks = new HashMap<String,Integer>();
     Map<String,Page> linkToPage = new HashMap<String,Page>();
 
-    File folder = new File("D:\\JAVA Workspace\\WebSearch\\src\\main\\Resources\\docs\\cs.nyu.edu\\courses\\spring16\\CSCI-GA.2580-001\\Prog3Example\\");
+    File folder = new File(docs);
     File[] listOfFiles = folder.listFiles();
     Weights weightObj = new Weights(listOfFiles.length);
 
     for (File file : listOfFiles) {
       if (file.isFile()) {
         int wordCount = parser.getWordCount(file.getAbsolutePath());
-        System.out.println(file.getName() + " " + wordCount);
         Page page = new Page(wordCount,file.getAbsolutePath());
         pages.add(page);
         linkToPage.put(file.getName(), page);
       }
     }
-    int baseSum = 0;
+    float baseSum = 0;
     for (int i = 0; i <pages.size();i++){
       baseSum += pages.get(i).getBase();
     }
-
     for (Page page: pages){
       page.setBase(page.getBase()/baseSum);
       page.setScore(page.getBase());
@@ -82,12 +86,8 @@ public class PageRank {
         }
       }
     }
-    float f = (float) 0.7;
-    //float change = (float)Integer.MAX_VALUE;
     boolean changed = true;
     float epsilon = (float) (0.01/pages.size());
-    
-    
     while(changed){
       changed = false;
       
@@ -107,9 +107,11 @@ public class PageRank {
         pPage.setScore(pPage.getNewScore());
       }
     }
-    System.out.println("----------");
+    Collections.sort(pages,new PageComparator());
     for (Page pPage:pages){
-      System.out.println(pPage.getFileName()+" " + pPage.getScore());
+      String filename = pPage.getFileName();
+      filename = filename.replaceFirst("[.][^.]+$", "");
+      System.out.println(filename + " " + pPage.getScore());
     }
   }
 }

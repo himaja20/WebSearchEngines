@@ -19,9 +19,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-mainClassName = 'crawler.WebCrawler'
-task crawlerjar(type: Jar) {
-    baseName = "crawler"
+mainClassName = 'PageRank.PageRank'
+task pagerankjar(type: Jar) {
+    baseName = "PageRank"
     
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
