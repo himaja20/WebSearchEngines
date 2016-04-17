@@ -1,0 +1,234 @@
+\documentclass{article}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{tabularx}
+\usepackage{multirow}
+\pagestyle{fancy}
+\lhead{Himaja Rachakonda --- hr970 --- N14633788}
+
+\begin{document}
+
+\title{Web Search Engines --- Problem Set 3}
+\date{March 28, 2016}
+\author{Himaja Rachakonda\\ N14633788\\ hr970}
+\maketitle
+\newpage
+\section[A]{Problem 1}
+
+The decisons of the judges are as follows --
+
+\begin{center}
+\begin{tabular}{cc|c|c|c|l}
+\cline{3-5}
+& & \multicolumn{3}{ c| }{Judge 2} \\ \cline{3-5}
+& & Yes & No & Total \\ \cline{1-5}
+\multicolumn{1}{ |c  }{\multirow{3}{*}{Judge 1} } &
+\multicolumn{1}{ |c| }{Yes} & 2 & 4 & 6 &     \\ \cline{2-5}
+\multicolumn{1}{ |c  }{} &
+\multicolumn{1}{ |c| }{No} & 4 & 2 & 6 &     \\ \cline{2-5}
+\multicolumn{1}{ |c  }{} &
+\multicolumn{1}{ |c| }{Total} & 6 & 6 & 12 &     \\ \cline{1-5}
+\end{tabular} \\
+\end{center}
+
+\begin{align*}
+P(A) = \frac{4}{12} =  0.333 \\
+P(Relevant) = \frac{6}{12} = 0.5 \\
+P(Non-relevant) = \frac{6}{12} = 0.5 \\
+\end{align*}
+\begin{align*}
+P(E) 	= & {P(NR)}^{2} + {P(R)}^{2} \\
+  	=& 0.5^{2} + 0.5^{2} \\
+ 	=& 0.5 \\
+\end{align*}
+\subsection{Calculation of Kappa $\kappa$}
+\begin{align*}
+\kappa =& \frac{P(A) - P((E)}{1 - P(E)} \\
+	=& \frac{0.33 - 0.5}{1 - 0.5} \\
+  	=& -0.36
+\end{align*}
+
+\subsection{Relevant if both judges agree}
+
+
+\begin{center}
+\begin{tabular}{cc|c|c}
+\cline{2-3}
+\multicolumn{1}{l}{} &
+\multicolumn{1}{ |c| }{Relevant} & {Non Relevant} \\ \cline{2-3}
+\multicolumn{1}{ c| }{Retrieved} & 1(tp) & 4(fp) &     \\ \cline{2-3}
+\multicolumn{1}{ c| }{Not Retrieved} & 3(fn) & 4(fn) &     \\ \cline{2-3}
+\end{tabular} \\
+\end{center}
+
+\subsubsection{Precision}
+\begin{align*}
+Precision =& \frac{tp}{tp+fp} \\
+	=&\frac{1}{5} \\
+	=& 0.2 \\
+\end{align*}
+\subsubsection{Recall}
+\begin{align*}
+Recall =& \frac{tp}{tp+fn} \\
+        =&\frac{1}{4} \\
+	=& 0.25 \\
+\end{align*}
+\subsubsection{$F_{1}$--Score}
+
+\begin{align*}
+F_{1} =& \frac{2PR}{P+R} \\
+	=& \frac{2 * 0.2 * 0.25}{0.2 + 0. 25} \\
+	=& 0.222 \\
+\end{align*}
+
+\subsection{Relevant if either of the judges agree}
+
+
+\begin{center}
+\begin{tabular}{cc|c|c}
+\cline{2-3}
+\multicolumn{1}{l}{} &
+\multicolumn{1}{ |c| }{Relevant} & {Non Relevant} \\ \cline{2-3}
+\multicolumn{1}{ c| }{Retrieved} & 5(tp) & 0(fp) &     \\ \cline{2-3}
+\multicolumn{1}{ c| }{Not Retrieved} & 5(fn) & 2(fn) &     \\ \cline{2-3}
+\end{tabular} \\
+\end{center}
+
+\subsubsection{Precision}
+\begin{align*}
+Precision =& \frac{tp}{tp+fp} \\
+        =&\frac{5}{5} \\
+        =& 1 \\
+\end{align*}
+\subsubsection{Recall}
+\begin{align*}
+Recall =& \frac{tp}{tp+fn} \\
+        =&\frac{1}{2} \\
+        =& 0.5 \\
+\end{align*}
+\subsubsection{$F_{1}$--Score}
+
+\begin{align*}
+F_{1} =& \frac{2PR}{P+R} \\
+        =& \frac{2 * 1 * 0.5}{1 + 0. 5} \\
+        =& 0.666 \\
+\end{align*}
+
+\section{Problem 2}
+\subsection{Image search based on Text}
+Image search based on text should rank images based on the number of objects matching the semantic meaning of the query terms in the input. For Example: Query ``A man in front of Taj Mahal`` should have all attributes - man, Taj Mahal, and his placement before the monument.
+
+\subsection{Image search based on Input Images}
+An Image search with an input image should retrieve all visually similar images in terms of objects` placement, location, color, contrast and brightness. This does not require the images to be similar in a logical sense i.e, relevancy is only with respect to the features of the image and not what the image actually signifies.  	
+
+Example: An input image with a library can be a library in NYU which has a similar image from a game which has a library scene with similar features.
+
+\subsection{How does text search differ from an image search}
+Text search looks for the semantic match of the query within the image, whereas image search mostly focuses on the visual similarity between the images.
+
+\section{Problem 3}
+\begin{center}
+\begin{tabular}{cc|c|c|c}
+\cline{2-4}
+\multicolumn{1}{l}{} &
+\multicolumn{1}{ |c| }{A} & {B} & {c} \\ \cline{2-4}
+\multicolumn{1}{ c| }{X} & 10 & 40 & 20 &     \\ \cline{2-4}
+\multicolumn{1}{ c| }{Y} & 50 & 10 & 20 &    \\ \cline{2-4}
+\end{tabular} \\
+\end{center}
+
+\subsection{Purity of cluster}
+The purity of a cluster is given by 
+\begin{align*}
+  purity(\Omega, \mathbb{C}) = & \frac{1}{N} \sum_{k} \max_{j} |\omega_{k} \cap C_{j}|
+\end{align*}
+
+Here --
+\begin{align*}
+  \Omega = & {X, Y} \\
+  \mathbb{C} = & {A, B, C}
+\end{align*}
+
+$\omega_{k}$ is the set of documents and $ c_{j} $ is the set of documents in $c_{j}$.
+
+\begin{align*}
+  purity(\Omega, \mathbb{C}) =& \frac{1}{150} ( 40 + 50 )\\
+  =& \frac{90}{150}\\
+  =& 0.6
+\end{align*}
+
+\subsection{Computation for TP, TN, FP, FN, P, R, $F_{\beta}$ }
+\subsubsection{TP --- True Positives}
+Pairs $ \alpha -  \beta $ which belong to same cluster in both the gold standard and algorithmic clustering.
+
+\begin{align*}
+  TP =& \frac{10 * 9}{2} + \frac{40 * 39}{2} + \frac{20 * 19}{2} + \frac{50 * 49}{2} + \frac{10 * 9}{2} + \frac{20 * 19}{2} \\
+  =& 20*39 + 25*49 + 20*19 + 10*9 \\
+  =& 2475
+\end{align*}
+
+\subsubsection{FP --- False Positives}
+Pairs $ \alpha -  \beta $ which belong to same cluster in the algorithmic cluster but different clusters in the gold standard.
+
+\begin{align*}
+  FP =& 10*40 + 10*20 + 40*20 + 50*10 + 50*20 + 10*20 \\
+  =& 400 + 200 + 800 + 500 + 1000 + 200 \\
+  =& 3100
+\end{align*}
+
+\subsubsection{FN --- False Negatives}
+Pairs $ \alpha -  \beta $ which are in the same cluster in the gold standard, but different algorithmic clusters.
+
+\begin{align*}
+  FN =& 10*50 + 40*10 + 20*20 \\
+  =& 500 + 400 + 400 \\
+  =& 1300
+\end{align*}
+
+\subsubsection{TN --- True Negatives}
+Pairs $ \alpha -  \beta $ that are in different clusters in both the gold standard and the algorithmic clustering.
+
+\begin{align*}
+  TN =& 10*10 + 10*20 + 40*50 + 40*20 + 20*50 + 20*10 \\
+  =& 100 + 200 + 2000 + 800 + 1000 + 200 \\
+  =& 4300
+\end{align*}
+
+\subsection{Rand index}
+\begin{align*}
+  RI = & \frac{TP + TN}{TP + FP + FN + TN} \\
+  =& \frac{6775}{11175} \\
+  =& 0.606
+\end{align*}
+
+\subsection{Precision}
+\begin{align*}
+  Precision =& \frac{TP}{TP+FP} \\
+  =& \frac{2475}{2475 + 3100}\\
+  =& \frac{2475}{5575} \\
+  =& 0.4439
+\end{align*}
+
+\subsection{Recall}
+\begin{align*}
+  Recall =& \frac{TP}{TP + FN} \\
+  =& \frac{2475}{2475 + 1300} \\
+  =& \frac{2475}{3775} \\
+  =& 0.6556
+\end{align*}
+
+\subsection{F score when $\beta$=1}
+\begin{align*}
+  F_{\beta} =& \frac{(\beta^{2} + 1) * P * R}{\beta^{2}P + R} \\
+  =& \frac{2PR}{P+R} \\
+  =& \frac{2 * 0.4439 * 0.6556}{0.4439 + 0.6556} \\
+  =& \frac{0.5820}{1.0995} \\
+  =& 0.5293
+\end{align*}
+
+\end{document}
