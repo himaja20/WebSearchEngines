@@ -342,12 +342,12 @@ public class WebCrawler {
 	public File downloadFile(URL url) throws IOException{
 		String inputLine;
 		BufferedReader br = null;
-		String fileName = docs + url.getHost()+ url.getPath();
+		String fileName = docs + "\\" + url.getHost()+ url.getPath();
 
 		File f = new File(new File(fileName).getParent());
 		f.mkdirs();
 
-		File fileToSave = new File(docs + url.getHost() + url.getFile());
+		File fileToSave = new File(docs + "\\"+url.getHost() + url.getFile());
 		if (!fileToSave.exists()){
 			fileToSave.createNewFile();
 		}
